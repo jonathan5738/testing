@@ -1,6 +1,12 @@
 const { ObjectId } = require("mongodb");
 const {client} = require("../db");
+const { default: z } = require("zod");
 
+const postSchema = z.object({
+    title: z.string().min(4, "Title is required").max(100, "Title too long").trim(),
+    content: z.string().min(10, "Content is required").max(400, "Content is too long").trim(),
+    author: z.string().min(5, "Author is required")
+})
 class PostController {
     constructor(){
         this.postCollection = client.db(process.env.DB_NAME).collection("posts");
@@ -27,7 +33,13 @@ class PostController {
     createPost = async (req, res) => {
         try{
             const {title, content, author} = req.body;
+            const result = postSchema.safeDecode({title, content, author});
+            if(result.error){
+                res.status(400).send({message: "invalid data sent"});
+                return;
+            }
             await this.postCollection.insertOne({title, content,author});
+            res.status(201).send();
         } catch(err){
             res.status(400).send(err)
         }
