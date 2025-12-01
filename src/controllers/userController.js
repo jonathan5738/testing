@@ -59,6 +59,7 @@ class UserController {
         try{
             const {id} = req.params;
             const result = await this.userCollection.deleteOne({_id: new ObjectId(id)});
+            // some comment
             if(result.deletedCount > 0 && result.acknowledged){
                 res.status(200).send();
                 return;
