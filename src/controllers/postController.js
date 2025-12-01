@@ -23,4 +23,13 @@ class PostController {
             res.status(500).send(err);
         }
     }
+
+    createPost = async (req, res) => {
+        try{
+            const {title, content, author} = req.body;
+            await this.postCollection.insertOne({title, content,author});
+        } catch(err){
+            res.status(400).send(err)
+        }
+    }
 }
