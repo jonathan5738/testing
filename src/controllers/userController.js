@@ -30,7 +30,7 @@ class UserController {
         try{
             const {username, firstName, lastName, email} = req.body;
             await this.userCollection.insertOne({username, firstName, lastName, email});
-            res.status(201).send();
+            res.status(201).send({message: "user successfully created"});
         } catch(err){
             res.status(400).send(err);
         }
@@ -48,7 +48,7 @@ class UserController {
                 .updateOne({_id: foundUser._id}, {$set: {username, firstName, lastName, email}});
             
             if(result.acknowledged){
-                res.send({message: "user added"});
+                res.send({message: "user updated"});
             }
         } catch(err){
             res.status(400).send(err);
@@ -64,7 +64,7 @@ class UserController {
                 res.status(200).send();
                 return;
             }
-            res.status(400).send();
+            res.status(400).send({message: "unable to delete this user"});
         } catch(err){
             res.status(500).send(err);
         }
