@@ -54,6 +54,20 @@ class UserController {
             res.status(400).send(err);
         }
     }
+
+    deleteUser = async (req, res) => {
+        try{
+            const {id} = req.params;
+            const result = await this.userCollection.deleteOne({_id: new ObjectId(id)});
+            if(result.deletedCount > 0 && result.acknowledged){
+                res.status(200).send();
+                return;
+            }
+            res.status(400).send();
+        } catch(err){
+            res.status(500).send(err);
+        }
+    }
 }
 const userInstance = new UserController();
 
