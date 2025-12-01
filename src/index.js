@@ -1,0 +1,11 @@
+const express = require("express");
+require("dotenv").config()
+const { connectToDatabase } = require("./db");
+const PORT = process.env.PORT;
+
+const app = express();
+
+app.listen(PORT, async () => {
+    await connectToDatabase();
+    console.log(`server listenning on ${PORT}`);
+})
