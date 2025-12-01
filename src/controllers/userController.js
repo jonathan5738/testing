@@ -35,6 +35,25 @@ class UserController {
             res.status(400).send(err);
         }
     }
+    updateUser = async (req, res) => {
+        try{
+            const {id} = req.params;
+            const foundUser = await this.userCollection.findOne({_id: new ObjectId(id)});
+            if(!foundUser){
+                res.status(404).send({error: "not found"});
+                return;
+            }
+            const {username, firstName, lastName, email} = req.body;
+            const result = await this.userCollection
+                .updateOne({_id: foundUser._id}, {$set: {username, firstName, lastName, email}});
+            
+            if(result.acknowledged){
+                res.send({message: "user added"});
+            }
+        } catch(err){
+            res.status(400).send(err);
+        }
+    }
 }
 const userInstance = new UserController();
 
