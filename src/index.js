@@ -11,6 +11,8 @@ app.use(express.json());
 app.get("/api/posts", postController.getAllPosts);
 app.get("/api/posts/:id", postController.getOnePosts);
 app.post("/api/posts", postController.createPost);
+app.put("/api/posts/:id", postController.updatePost);
+app.delete("/api/posts/:id", postController.deletePost);
 
 app.listen(PORT, async () => {
     await connectToDatabase();
