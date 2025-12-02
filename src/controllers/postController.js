@@ -12,7 +12,9 @@ class PostController {
         this.postCollection = client.db(process.env.DB_NAME).collection("posts");
     }
     
-
+    printMessage = () => {
+        console.log("welcome fellas to my website");
+    }
     getOnePosts = async (req, res) => {
         try{
             const {id} = req.params;
