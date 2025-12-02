@@ -26,7 +26,7 @@ class PostController {
     }
 
     createPost = async (req, res) => {
-        try{
+        try {
             const {title, content, author} = req.body;
             const result = postSchema.safeDecode({title, content, author});
             if(result.error){
