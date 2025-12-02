@@ -88,5 +88,8 @@ class PostController {
             this.author = author;
         }
         --- getters and setters
+
+        public int getId() { return this.id; }
+        public String getContent() { return  this.content; }
  * }
  */
