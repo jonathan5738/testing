@@ -7,7 +7,7 @@ class UserController {
     }
     getAllUsers = async (req, res) => {
         try{
-            const users = await this.userCollection.find({});
+            const users = await this.userCollection.find({}).toArray();
             res.status(200).send(users);
         } catch(err){
             res.status(500).send(err);

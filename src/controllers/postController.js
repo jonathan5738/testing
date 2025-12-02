@@ -11,7 +11,14 @@ class PostController {
     constructor(){
         this.postCollection = client.db(process.env.DB_NAME).collection("posts");
     }
-    
+    getAllPosts = async (req, res) => {
+        try{
+            const posts = await this.postCollection.find({}).toArray();
+            res.status(200).send(posts);
+        } catch(err){
+            res.status(400).send(err);
+        }
+    }
     printMessage = () => {
         console.log("welcome fellas to my website");
     }
@@ -71,25 +78,5 @@ class PostController {
     }
 }
 
-/**
- * @Entity
- * @Table(name="posts")
- * public class Post {
-        @Id
-        private int id;
-        private String title;
-        private String content;
-        private String author;
-
-        public Post(){}
-        public Post(String title, String content, String author){
-            this.title = title;
-            this.content = content;
-            this.author = author;
-        }
-        --- getters and setters
-
-        public int getId() { return this.id; }
-        public String getContent() { return  this.content; }
- * }
- */
+const postController = new PostController();
+module.exports = postController;
