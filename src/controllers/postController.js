@@ -66,7 +66,7 @@ class PostController {
             res.status(500).send(err);
         }
     }
-    deletePost = async (req, res) => {
+   deletePost = async (req, res) => {
         try{
             const {id} = req.params;
             await this.postCollection.deleteOne({_id: new ObjectId(id)});
