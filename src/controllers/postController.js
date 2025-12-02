@@ -70,6 +70,7 @@ class PostController {
         try{
             const {id} = req.params;
             await this.postCollection.deleteOne({_id: new ObjectId(id)});
+            res.status(200).send();
         } catch(err){
             res.status(500).send(err);
         }
