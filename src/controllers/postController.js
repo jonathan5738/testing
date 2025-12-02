@@ -37,4 +37,26 @@ class PostController {
             res.status(400).send(err)
         }
     }
+
+    updatePost = async (req, res) => {
+        try{
+            const {id} = req.params;
+            const foundPost = await this.postCollection.findOne({_id: new ObjectId(id)});
+            if(!foundPost){
+                res.status(404).send({message: "post not found"});
+                return;
+            }
+            const {title, content, author} = req.body;
+            const result = postSchema.safeDecode({title, content, author});
+            if(result.error){
+                res.status(400).send({message: "invalid data sent"});
+                return;
+            }
+            await this.postCollection
+            .updateOne({_id: new ObjectId(id)}, {$set: {title, content, author}});
+            res.status(200).send();
+        } catch(err){
+            res.status(500).send(err);
+        }
+    }
 }
