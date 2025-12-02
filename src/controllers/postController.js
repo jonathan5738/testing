@@ -70,3 +70,23 @@ class PostController {
         }
     }
 }
+
+/**
+ * @Entity
+ * @Table(name="posts")
+ * public class Post {
+        @Id
+        private int id;
+        private String title;
+        private String content;
+        private String author;
+
+        public Post(){}
+        public Post(String title, String content, String author){
+            this.title = title;
+            this.content = content;
+            this.author = author;
+        }
+        --- getters and setters
+ * }
+ */
